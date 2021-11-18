@@ -9,8 +9,8 @@ namespace DataLayer.Model
     public class FoodContent
     {
         public string Content { set; get; }
-        public int ContentID { set; get; }
+        public int FoodContentID { set; get; } //PK
 
-        public virtual FoodPackage foodpackage { set; get; }
+        public FoodBox Foodboxes { set; get; }
     }
 }

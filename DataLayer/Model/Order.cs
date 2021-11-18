@@ -8,11 +8,11 @@ namespace DataLayer.Model
 {
     public class Order
     {
-        public int OrderID { set; get; }
+        public int OrderID { set; get; } //PK
         public DateTime DeliveryDate { set; get; }
-        public int CustomerID { set; get; }
-        public virtual Customer customer { set; get; }
+        public int CustomerID { set; get; } //FK
 
-        public virtual ICollection<FoodPackage> FoodPackages { get; set; }
+        public Customer Customers { set; get; }
+        public ICollection<FoodBox> FoodBoxes { get; set; }
     }
 }
