@@ -32,6 +32,17 @@ namespace ConsoleApp
             }
         }
 
-        
+        public static void adminCustomerList()
+        {
+            foreach (var customer in AdminBackend.ListCustomers())
+            {
+                Console.WriteLine(
+                    $"\n ID: {customer.ID} / Customer: {customer.FullName}");
+
+            }
+
+
+        }
+
     }
 }
