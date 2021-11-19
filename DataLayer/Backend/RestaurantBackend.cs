@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer.Data;
 using DataLayer.Model;
@@ -10,29 +11,20 @@ namespace DataLayer.Backend
     public class RestaurantBackend
     {
         // en metod för att få en lista över alla sålda matlådor för ett restaurang objekt
-        public static void ListSpecificResaurantSales()
+        
+        public static List<FoodBox> ListSpecificResaurantSales()
         {
             using var ctx = new AdminDbContext();
 
             // visar alla köpta matlådor för restaurangen "Bohus Pizza"
-            var querys = ctx.FoodBoxes
-                .Select(c => new
-                {   
-                    k = c.Price,                    
-                    bn = c.BoxName,
-                    oID = c.Order,
-                    dd = c.Order.DeliveryDate,
-                    fn = c.Order.Customers.FullName,
-                    rn = c.Restaurant.RestaurantName,
+            var salesFromRestaurant = ctx.FoodBoxes
+                .Include(c => c.Order)
+                .ThenInclude(c => c.Customer)
+                .Include(c => c.Restaurant)                
+                .Where(c => c.Restaurant.RestaurantName == "BohusPizza" && c.Order != null);
 
-                })
-                .Where(c => c.rn == "BohusPizza" && c.oID != null);
-
-            foreach (var fb in querys)
-            {
-                Console.WriteLine(
-                    $"Restaurant: {fb.rn}, Customer name: {fb.fn}, Food Box: {fb.bn}, Deliviery made: {fb.dd}");
-            }
+            return salesFromRestaurant.ToList();
+            
         }
 
         // Låter personal på restaurangen radera valfri matlåda, tex en matlåda som gått ut och inte blivit såld.
@@ -112,7 +104,6 @@ namespace DataLayer.Backend
                                         .Where(c => c.RestaurantID == resturantChoice)
                                         .FirstOrDefault();            
 
-            //Console.Clear();
             Console.WriteLine(" List of boxes in: " + restaurant.RestaurantName);
                         
             foreach (var x in restaurant.foodBox)

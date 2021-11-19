@@ -12,7 +12,7 @@ namespace DataLayer.Model
         public DateTime DeliveryDate { set; get; }
         public int CustomerID { set; get; } //FK
 
-        public Customer Customers { set; get; }
+        public Customer Customer { set; get; }
         public ICollection<FoodBox> FoodBoxes { get; set; }
     }
 }

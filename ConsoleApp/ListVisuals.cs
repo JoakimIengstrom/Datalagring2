@@ -12,7 +12,6 @@ namespace ConsoleApp
     {
         public static void ResturantListUI()
         {
-
             foreach (var restaurant in AdminBackend.ListRestaurants())
             {
                 Console.WriteLine($"ID: {restaurant.RestaurantID} " +
@@ -28,7 +27,6 @@ namespace ConsoleApp
             {
                 Console.WriteLine(
                         $"Name: {customer.FullName}, Password: {customer.PassWord}, Email: {customer.Email}");
-
             }
         }
 
@@ -38,11 +36,21 @@ namespace ConsoleApp
             {
                 Console.WriteLine(
                     $"\n ID: {customer.ID} / Customer: {customer.FullName}");
-
             }
-
-
         }
 
+        public static void ListSpecificResaurantSalesUI()
+        {
+            using var ctx = new AdminDbContext();
+
+            foreach (var salesFromRestaurant in RestaurantBackend.ListSpecificResaurantSales())
+            {
+                Console.WriteLine(
+                    $" Restaurant: { salesFromRestaurant.Restaurant.RestaurantName }" +
+                    $", Customer name: {salesFromRestaurant.Order.Customer.FullName}" +
+                    $", Food Box: {salesFromRestaurant.BoxName}" +
+                    $", Deliviery made: {salesFromRestaurant.Order.DeliveryDate.ToShortDateString()}");
+            }
+        }
     }
 }

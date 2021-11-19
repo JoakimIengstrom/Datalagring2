@@ -71,15 +71,15 @@ namespace DataLayer.Data
 
             var orders = new Order[]
             {
-                new() { DeliveryDate = DateTime.Now - TimeSpan.FromHours(14), Customers = customers [0] },
-                new() { DeliveryDate = DateTime.Now - TimeSpan.FromHours(9),  Customers = customers [1] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(2),  Customers = customers [1] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(3),  Customers = customers [2] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(5),  Customers = customers [3] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(7),  Customers = customers [4] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(8),  Customers = customers [5] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(9),  Customers = customers [6] },
-                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(2),  Customers = customers [0] },
+                new() { DeliveryDate = DateTime.Now - TimeSpan.FromHours(14), Customer = customers [0] },
+                new() { DeliveryDate = DateTime.Now - TimeSpan.FromHours(9),  Customer = customers [1] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(2),  Customer = customers [1] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(3),  Customer = customers [2] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(5),  Customer = customers [3] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(7),  Customer = customers [4] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(8),  Customer = customers [5] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(9),  Customer = customers [6] },
+                new() { DeliveryDate = DateTime.Now + TimeSpan.FromHours(2),  Customer = customers [0] },
             };
 
             ctx.Orders.AddRange(orders);
@@ -129,10 +129,7 @@ namespace DataLayer.Data
                 new() {BoxName = "Snitzel", BoxCategory = "Meat",       Price = 61, BestBefore = DateTime.Today - TimeSpan.FromDays(1), Restaurant = restaurants [0] },
             };
             ctx.FoodBoxes.AddRange(foodBoxes);
-            ctx.SaveChanges();
-
-
-           
+            ctx.SaveChanges();           
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DataLayer.Backend
                     bn = c.BoxName,
                     oID = c.Order,
                     dd = c.Order.DeliveryDate,
-                    fn = c.Order.Customers.FullName,
+                    fn = c.Order.Customer.FullName,
                     rn = c.Restaurant.RestaurantName,
 
                 })
@@ -108,7 +108,7 @@ namespace DataLayer.Backend
                     Console.Write("\nPick a box, type ID: ");
                     var foodBoxChoice = ctx.FoodBoxes.Find(Convert.ToInt32(Console.ReadLine()));
 
-                    var order = new Order() { DeliveryDate = DateTime.Now, Customers = customerBuy };
+                    var order = new Order() { DeliveryDate = DateTime.Now, Customer = customerBuy };
 
                     foodBoxChoice.Order = order;
 
@@ -130,10 +130,8 @@ namespace DataLayer.Backend
                     {
                         return;
                     }
-
                 }
-            }            
-                      
+            }                     
         }          
 
         // visar all köphistorik för en specifik användare
@@ -157,7 +155,7 @@ namespace DataLayer.Backend
                     bn = c.BoxName,
                     oID = c.Order,
                     dd = c.Order.DeliveryDate,
-                    fn = c.Order.Customers.FullName,
+                    fn = c.Order.Customer.FullName,
                     rn = c.Restaurant.RestaurantName,
                 })
                 .Where(c => c.fn == customerChoice && c.oID != null);
@@ -184,12 +182,10 @@ namespace DataLayer.Backend
                     bc = c.BoxCategory,
                     bn = c.BoxName,
                     p = c.Price,
-
                 })
                 .OrderBy(c => c.bc);
             foreach (var f in querys)
             {
-
                 Console.WriteLine($" Category: {f.bc}, BoxName: {f.bn}, Restaurant: {f.rn}, {f.p}:- ");
             }            
         }

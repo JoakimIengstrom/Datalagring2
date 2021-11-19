@@ -52,13 +52,13 @@ namespace DataLayer.Backend
                 return null;
                     
             }
+
             else
             {
                 customer.FullName = "Deleted"; customer.PassWord = "Deleted"; customer.PassReg = DateTime.Today;  
                 ctx.SaveChanges();
                 return customer;   
-            }
-            
+            }            
         }        
 
         // Lägg till valfri restaurang via console appen "tillfälligt" eftersom databasen återskapas varje körning
@@ -68,8 +68,7 @@ namespace DataLayer.Backend
 
             var newRestaurant = new Restaurant { RestaurantName = restaurantName, City = city, Phonenumber = phonenumber };
             ctx.Restaurants.Add(newRestaurant);
-            ctx.SaveChanges();
-                     
+            ctx.SaveChanges();                     
         }
 
         //Här läggs restaurangen "William" till
@@ -104,8 +103,7 @@ namespace DataLayer.Backend
             customer.Email = newEmail;
             ctx.SaveChanges();
 
-            return customer;
-                        
+            return customer;                        
         }
 
         public decimal TotalFoodRescueSales()
@@ -121,10 +119,7 @@ namespace DataLayer.Backend
                 .Where(c => c.oID != null)
                 .Sum(c => c.p);
 
-            return moneyQuery;            
-           
+            return moneyQuery;           
         }
-
-    }
-    
+    }    
 }
