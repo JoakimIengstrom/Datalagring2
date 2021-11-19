@@ -10,11 +10,13 @@ namespace ConsoleApp
 {
     public class ListVisuals
     {
+        //Några metorder som visar olika delar av databasen med lite olika formateringar, beroende på syftet. 
+
         public static void ResturantListUI()
         {
             foreach (var restaurant in AdminBackend.ListRestaurants())
             {
-                Console.WriteLine($"ID: {restaurant.RestaurantID} " +
+                Console.WriteLine(  $"ID: {restaurant.RestaurantID} " +
                                     $"\nRestaurant: {restaurant.RestaurantName} " +
                                     $"\nCity: {restaurant.Phonenumber} " +
                                     $"\nPhonenumber: {restaurant.City} ");
@@ -25,8 +27,7 @@ namespace ConsoleApp
         {
             foreach (var customer in AdminBackend.ListCustomers())
             {
-                Console.WriteLine(
-                        $"Name: {customer.FullName}, Password: {customer.PassWord}, Email: {customer.Email}");
+                Console.WriteLine(  $"Name: {customer.FullName}, Password: {customer.PassWord}, Email: {customer.Email}");
             }
         }
 
@@ -34,8 +35,7 @@ namespace ConsoleApp
         {
             foreach (var customer in AdminBackend.ListCustomers())
             {
-                Console.WriteLine(
-                    $"\n ID: {customer.ID} / Customer: {customer.FullName}");
+                Console.WriteLine(  $"\n ID: {customer.ID} / Customer: {customer.FullName}");
             }
         }
 
@@ -46,10 +46,10 @@ namespace ConsoleApp
             foreach (var salesFromRestaurant in RestaurantBackend.ListSpecificResaurantSales())
             {
                 Console.WriteLine(
-                    $" Restaurant: { salesFromRestaurant.Restaurant.RestaurantName }" +
-                    $", Customer name: {salesFromRestaurant.Order.Customer.FullName}" +
-                    $", Food Box: {salesFromRestaurant.BoxName}" +
-                    $", Deliviery made: {salesFromRestaurant.Order.DeliveryDate.ToShortDateString()}");
+                                    $" Restaurant: { salesFromRestaurant.Restaurant.RestaurantName }" +
+                                    $", Customer name: {salesFromRestaurant.Order.Customer.FullName}" +
+                                    $", Food Box: {salesFromRestaurant.BoxName}" +
+                                    $", Deliviery made: {salesFromRestaurant.Order.DeliveryDate.ToShortDateString()}");
             }
         }
     }

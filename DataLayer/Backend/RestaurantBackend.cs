@@ -76,7 +76,7 @@ namespace DataLayer.Backend
 
             foreach (var restaurantList in ctx.Restaurants)
             {
-                Console.WriteLine($"Restaurant: {restaurantList.RestaurantName} " +
+                Console.WriteLine(  $"Restaurant: {restaurantList.RestaurantName} " +
                                     $"\nCity: {restaurantList.Phonenumber} " +
                                     $"\nPhonenumber: {restaurantList.City} \n");
             }
@@ -96,7 +96,7 @@ namespace DataLayer.Backend
 
             AdminBackend.ListRestaurants();
 
-            Console.Write("\nChoose the Restaurant you want to work with. ID: ");
+            Console.Write( "\nChoose the Restaurant you want to work with. ID: ");
 
             int resturantChoice = Convert.ToInt32(Console.ReadLine());
             var restaurant = ctx.Restaurants

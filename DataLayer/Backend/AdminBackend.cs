@@ -33,7 +33,6 @@ namespace DataLayer.Backend
             using var ctx = new AdminDbContext();
 
             return ctx.Restaurants.ToList();
-
         }
 
         public Customer DeleteCustomer(int chosenCustomerID)
@@ -49,8 +48,7 @@ namespace DataLayer.Backend
             {
                 ctx.Customers.Remove(ctx.Customers.Find(chosenCustomerID));
                 ctx.SaveChanges();
-                return null;
-                    
+                return null;                    
             }
 
             else

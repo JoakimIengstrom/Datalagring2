@@ -42,8 +42,8 @@ namespace ConsoleApp
                     string customerOptions = Console.ReadLine();
                     Console.Clear();
 
-                    if (customerOptions == "1") { UserBackend.ListFoodBoxesLeftToBuy(); returnNote(); }
-                    if (customerOptions == "2") { UserBackend.ListSoldFoodBoxes(); returnNote(); }
+                    if (customerOptions == "1") { boxesLeftToBuyUI(); returnNote(); }
+                    if (customerOptions == "2") { listSoldBoxesUI(); returnNote(); }
                     if (customerOptions == "3") { UserBackend.ShowFoodType(); returnNote(); }
                     if (customerOptions == "4") { UserBackend.BuyFoodBox(); returnNote(); }
                     if (customerOptions == "5") { UserBackend.CustomerHistory(); returnNote(); }
@@ -81,7 +81,6 @@ namespace ConsoleApp
                                         $"\n------------------------------------" +
                                         $"\n 1: Reset Database \"OBS! dangerous\" " +
                                         $"\n 2: List Restaurants " +
-
                                         $"\n 3: Add Restaurants " +
                                         $"\n 4: Delete Restaurants " +
                                         $"\n 5: Add Specific Restaurant " +
@@ -126,6 +125,26 @@ namespace ConsoleApp
                 }
             }
         }
+
+
+        private static void boxesLeftToBuyUI()
+        {
+            UserBackend userBackend = new UserBackend();
+            foreach (var foodBox in userBackend.ListFoodBoxesLeftToBuy())
+            {
+                Console.WriteLine($" Restaurant: {foodBox.Restaurant.RestaurantName}, Category: {foodBox.BoxCategory}, BoxName: {foodBox.BoxName},  {foodBox.Price}:- ");
+            }
+        }
+
+        private static void listSoldBoxesUI()
+        {
+            UserBackend userBackend = new UserBackend();
+            foreach (var foodbox in userBackend.ListSoldFoodBoxes())
+            {
+                Console.WriteLine($"Restaurant: {foodbox.Restaurant.RestaurantName}, Customer name: {foodbox.Order.Customer.FullName}, Food Box: {foodbox.BoxName}, Deliver made: {foodbox.Order.DeliveryDate}");
+            }
+        }
+
         private static void returnNote()
         {
             Console.WriteLine("\n Press any key to exit...");

@@ -1,60 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer.Data;
 using DataLayer.Model;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Backend
 {
     public class UserBackend
     {
         // visar alla köpta matlådor
-        public static void ListSoldFoodBoxes()
+        public List<FoodBox> ListSoldFoodBoxes()
         {
             using var ctx = new AdminDbContext();
 
-            var querys = ctx.FoodBoxes
-                .Select(c => new
-                {
-                    bn = c.BoxName,
-                    oID = c.Order,
-                    dd = c.Order.DeliveryDate,
-                    fn = c.Order.Customer.FullName,
-                    rn = c.Restaurant.RestaurantName,
+            var foodBoxesSold = ctx.FoodBoxes
+                .Include(c => c.Order)
+                .Include(c => c.Restaurant)
+                .Include(c => c.Order.Customer)
+                .Where(c => c.Order.OrderID.ToString() != null);
 
-                })
-                .Where(c => c.oID != null);
-
-            foreach (var f in querys)
-            {
-                Console.WriteLine( $"Restaurant: {f.rn}, Customer name: {f.fn}, Food Box: {f.bn}, Deliver made: {f.dd}");
-            }
+            return foodBoxesSold.ToList();
+            
         }
 
         // lista på alla osålda matlådor, sorterade på pris, lägst först (valde att sortera det per restaurant först och inom dem pris)
 
-        public static void ListFoodBoxesLeftToBuy()
+        public List<FoodBox> ListFoodBoxesLeftToBuy()
         {
             using var ctx = new AdminDbContext();
-                         
-            var querys = ctx.FoodBoxes
-                .Select(c => new
-                {
-                    rn = c.Restaurant.RestaurantName,
-                    bc = c.BoxCategory,
-                    bn = c.BoxName,
-                    p = c.Price,
-                    oID = c.Order,
-                })
-                .OrderBy(c => c.rn)
-                .ThenBy(c => c.p)
-                .Where(c => c.oID == null);
 
-            foreach (var f in querys)
-            {
+            var foodBoxesLeft = ctx.FoodBoxes
+                .Include(c => c.Order)
+                .Include(c => c.Restaurant)                
+                .Where(c => c.Order.OrderID.ToString() == null)               
+                .OrderBy(c => c.Restaurant.RestaurantName)
+                .ThenBy(c => c.Price);
 
-                Console.WriteLine($" Restaurant: {f.rn}, Category: {f.bc}, BoxName: {f.bn},  {f.p}:- ");
-            }
+            return foodBoxesLeft.ToList();            
         }
         
         // köp en angiven matlåda som är null(inte såld)
@@ -66,6 +49,7 @@ namespace DataLayer.Backend
             {
                 Console.WriteLine($"ID: {customer.ID}, Customer: {customer.FullName} ");
             }
+            
             Console.Write("Choose cuter by ID: ");
             var customerBuy = ctx.Customers.Find(Convert.ToInt32(Console.ReadLine()));
 
